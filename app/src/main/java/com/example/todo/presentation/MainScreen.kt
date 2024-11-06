@@ -26,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -119,25 +120,27 @@ fun CustomAppBar() {
 
 @Composable
 fun BuildTodoItems(items: List<Int>, modifier: Modifier) {
+
     LazyColumn(
         modifier
             .fillMaxWidth()
             .padding(20.dp)
             .clip(shape = RoundedCornerShape(10.dp))
             .background(color = Color(0xFFffffff)) //TODO: replace to theme color
-            .padding(20.dp)
+            .padding(10.dp)
             ,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         items(items) { item ->
+
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+//                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Checkbox(checked = false, onCheckedChange = {})
                 Text(
-
+                    modifier = Modifier.weight(2f),
                     text = "Таск:  ${item.toString()}",
                     style = TextStyle(fontSize = 18.sp, color = Color(0xFF000000))
                 )
