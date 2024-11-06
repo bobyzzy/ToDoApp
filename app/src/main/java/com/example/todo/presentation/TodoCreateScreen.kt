@@ -23,6 +23,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +44,12 @@ import com.example.todo.ui.theme.ToDoTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoCreateScreen(navController: NavHostController) {
+    var textValue: String by remember {
+        mutableStateOf(value = "")
+    }
+    var switchValue: Boolean by remember {
+        mutableStateOf(value = false)
+    }
     ToDoTheme {
         Scaffold(
             containerColor = Backround, // TODO: Replace to theme Data
@@ -89,8 +99,9 @@ fun TodoCreateScreen(navController: NavHostController) {
                         },
 
                         maxLines = 20,
-                        value = "",
+                        value = textValue,
                         onValueChange = {
+                            textValue = it
                         },
                     )
 
@@ -109,7 +120,9 @@ fun TodoCreateScreen(navController: NavHostController) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text("Сделать до")
-                        Switch(checked = true, onCheckedChange = { })
+                        Switch(checked = switchValue, onCheckedChange = {
+                            switchValue = it
+                        })
                     }
                 }
             }
@@ -165,9 +178,7 @@ fun ToDoCreatePreview() {
                         colors = OutlinedTextFieldDefaults.colors(
                             unfocusedContainerColor = Color.White,
                         ),
-
                         maxLines = 20,
-
                         value = "text",
                         onValueChange = {},
                     )
